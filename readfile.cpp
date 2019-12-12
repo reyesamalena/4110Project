@@ -29,7 +29,7 @@ void printItems(vector<item> I)
 {
 	cout << "Name\tWeight\tCost\tAddress\t\tValue\tEarn\n";
 	for(int x=0;x<I.size();x++) {
-		cout << I[x].name << "\t" << I[x].weight << "\t";
+		cout << I[x].name << "\t\t" << I[x].weight << "\t";
 		cout << I[x].cost << "\t" << I[x].address << "\t";
 		cout << I[x].value << "\t" << I[x].earn << "\n";
 	}
@@ -44,7 +44,7 @@ int main()
 	//ask user for filename of item set
 	cout << "Which file of item input to test?" << endl;
 	getline(cin, filename);
-
+	int i =0; 
 	//read file for items
 	ifstream file(filename.c_str());
 	while(file)
@@ -61,7 +61,8 @@ int main()
 			if(!getline(ss, value, ',')) break;
 			row.push_back(value);
 		}
-
+		i++;
+		//cout << i << endl;
 		//create temp item from values to add to vector
 		item temp(row[0],stoi(row[1]),stoi(row[2]),row[3]);
 		Items.push_back(temp);
