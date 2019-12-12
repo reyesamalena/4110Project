@@ -36,7 +36,7 @@ public:
 // sort items by their value (cost/weight)
 vector<item> itemSorter(vector<item> I) {
 	vector<item> items_temp = I;
-	sort(items_temp.begin(), items_temp.end(), greater <>());
+	sort(items_temp.begin(), items_temp.end(), greater <item>());
 	return items_temp;
 }
 
