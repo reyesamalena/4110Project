@@ -52,11 +52,16 @@ There are 5 different input files for items with the different weights,
 cost, and addresses. The values are comma separated so if someone wants to
 add their own file make sure it is in the format:
 		(name),(weight),(cost),(address).
-	input1.txt: Max Weight: 9, Max Cost: 3220
-	input2.txt: Max Weight: 100, Max Cost: 10000
-	input3.txt: Max Weight: , Max Cost: 
-	input4.txt: Max Weight: , Max Cost: 
-	input5.txt: Max Weight: , Max Cost: 
+	input1.txt: Min Weight: 1, Max Weight: 9, 
+		    Min Cost: 1, Max Cost: 3220
+	input2.txt: Min Weight: 1, Max Weight: 100, 
+		    Min Cost: 1, Max Cost: 10000
+	input3.txt: Min Weight: 1, Max Weight: 50,
+		    Min Cost: 1, Max Cost: 5000
+	input4.txt: Min Weight: 50, Max Weight: 100,	(only 1 with 50)
+		    Min Cost: 1, Max Cost: 1000
+	input5.txt: Min Weight: 100, Max Weight: 500,	(only 1 with 100)
+		    Min Cost: 1000, Max Cost: 5000	
 
 After executing the program you will choose one of these files to run. 
 
