@@ -40,6 +40,17 @@ vector<item> itemSorter(vector<item> I) {
 	return items_temp;
 }
 
+// eliminates items with weights > Weight max of truck
+vector<item> eliminator(vector<item> I, int W) {
+	vector<item> temp = I;
+	vector<item> newItems;
+	for(int i=0;i<temp.size();i++) {
+		if(temp[i].weight <= W)
+			newItems.push_back(temp[i]);
+	}
+	return newItems;
+}
+
 //prints all Items
 void printItems(vector<item> I)
 {
@@ -79,6 +90,8 @@ double knapSack(int W, vector<item> I, int n)
 
 	return (K[n][W]);
 }
+
+
 
 int main()
 {
@@ -120,13 +133,14 @@ int main()
 
 	file.close();
 
-	
+	Items = eliminator(Items,W);	
 	Items = itemSorter(Items);
 
 	int n = Items.size();
-	cout << knapSack(W,Items,n) << endl;
+	cout << "Maximum profit is : "<< knapSack(W,Items,n) << endl;
 
-//	printItems(Items);
+	cout << "Items under Weight " << W << " :" << endl;
+	printItems(Items);
 
 	return 0;
 }
