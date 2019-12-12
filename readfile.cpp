@@ -12,26 +12,29 @@ class item {
 	int weight;
 	int cost;
 	string address;
-	float value;
-	float earn;
+	double value;
+	double earn;
 
 	item(string n,int w,int c,string a) {
 		name = n;
 		weight = w;
 		cost = c;
 		address = a;
-		value = c/w;
-		earn = c/10;
+		value = ((double)c)/((double)w);
+		earn = ((double)c)/10;
 	}
 };
 
 void printItems(vector<item> I)
 {
-	cout << "Name\tWeight\tCost\tAddress\t\tValue\tEarn\n";
+	cout << "Name\t\t\tWeight\tCost\tValue\tEarn\tAddress\n";
 	for(int x=0;x<I.size();x++) {
-		cout << I[x].name << "\t\t" << I[x].weight << "\t";
-		cout << I[x].cost << "\t" << I[x].address << "\t";
-		cout << I[x].value << "\t" << I[x].earn << "\n";
+		cout << I[x].name << "\t\t";
+		cout << I[x].weight << "\t";
+		cout << I[x].cost << "\t";
+		cout << I[x].value << "\t";
+		cout << I[x].earn << "\t";	
+		cout << I[x].address << "\n";
 	}
 }
 
@@ -44,31 +47,32 @@ int main()
 	//ask user for filename of item set
 	cout << "Which file of item input to test?" << endl;
 	getline(cin, filename);
-	int i =0; 
+	
 	//read file for items
 	ifstream file(filename.c_str());
 	while(file)
 	{
 		string s;
 		if(!getline(file,s)) break;
-
+		
 		//split row into values seperated by commas
 		istringstream ss(s);
 		vector<string> row;
+		row.clear();
 		while(ss)
 		{
 			string value;
 			if(!getline(ss, value, ',')) break;
 			row.push_back(value);
 		}
-		i++;
-		//cout << i << endl;
 		//create temp item from values to add to vector
 		item temp(row[0],stoi(row[1]),stoi(row[2]),row[3]);
 		Items.push_back(temp);
 	}
 
 	file.close();
+	
+
 	printItems(Items);
 
 	return 0;
