@@ -13,6 +13,7 @@ Title: Project 1
 TESTED ON:
  
 macOS (with Xcode and g++ installed)
+Linux (Mac terminal and g++)
  
  
 ===========================================================================
@@ -43,7 +44,22 @@ uses the command format:
 
 This command will create an executable in the same directory called "a.out" 
 (the default executable target name when one is not specified). 
- 
+
+===========================================================================
+INPUT FILES:
+
+There are 5 different input files for items with the different weights,
+cost, and addresses. The values are comma separated so if someone wants to
+add their own file make sure it is in the format:
+		(name),(weight),(cost),(address).
+	input1.txt: Max Weight: 9, Max Cost: 3220
+	input2.txt: Max Weight: 100, Max Cost: 10000
+	input3.txt: Max Weight: , Max Cost: 
+	input4.txt: Max Weight: , Max Cost: 
+	input5.txt: Max Weight: , Max Cost: 
+
+After executing the program you will choose one of these files to run. 
+
 ===========================================================================
 EXECUTE PROGRAM:
  
