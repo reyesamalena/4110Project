@@ -43,7 +43,7 @@ void printSolution(int dist[], int V)
   
 // Function that implements Dijkstra's single source shortest path algorithm
 // for a graph represented using adjacency matrix representation
-void dijkstra(int graph[][], int src, int V)
+void dijkstra(int **graph, int src, int V)
 {
     int dist[V]; // The output array.  dist[i] will hold the shortest
     // distance from src to i
@@ -196,7 +196,21 @@ int main()
         numbers++;
     }
     cout << "elem----" << numbers<<  endl;
-    int graph[numbers][numbers];
+     //int graph= new int*[numbers+1];
+    int **graph=new int*[numbers+1];
+    //input array elements
+
+    
+    for(int i=0; i<numbers+1; i++){
+        graph[i]= new int[numbers+1];
+    }
+    for(int i=0;i<numbers;i++)
+    {
+        for(int j=0;j<numbers+1;j++)
+        {
+            graph[i][j]=0;
+        }
+    }
     int hold=numbers;
     numbers=0;
     int rows=0;
@@ -212,7 +226,8 @@ int main()
                 
             }else{
                 string t= it->str() ;
-                graph[rows][numbers-1]=stoi(t);
+                int tt=stoi(t);
+                graph[rows][numbers-1]=tt;
                             std::cout << it->str() ;
             }
             numbers++;
