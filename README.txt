@@ -19,8 +19,11 @@ Linux (Mac terminal and g++)
 ===========================================================================
 FILES INCLUDED:
 
-filename:     something
-              the fractional knapsack and the combo knapsack for comparison  
+knapsack.cpp:        this algorithm runs only using knapsack algorithm 
+                     for large sets of data. 
+              
+dijkstranknap.cpp:   this algorithm runs using dijkstras and knapsack
+                     however only runs on smaller sets of data.  
     
 
  
@@ -32,18 +35,11 @@ COMPILE PROGRAM:
 To compile this part one navigate inside the part1 folder and the easiest 
 compilation uses the command format:
 
-	g++ -std=c++11 *.cpp
+	g++ -std=c++11 filename.cpp
 
 This command will create an executable in the same directory called "a.out" 
 (the default executable target name when one is not specified). 
 
-To compile this part two open the part2 folder and the easiest compilation 
-uses the command format:
-
-	g++ -std=c++11 *.cpp
-
-This command will create an executable in the same directory called "a.out" 
-(the default executable target name when one is not specified). 
 
 ===========================================================================
 INPUT FILES:
@@ -62,6 +58,10 @@ add their own file make sure it is in the format:
 		    Min Cost: 1, Max Cost: 1000
 	input5.csv: Min Weight: 100, Max Weight: 500,	(only 1 with 100)
 		    Min Cost: 1000, Max Cost: 5000	
+		    
+		    
+		    
+
 
 After executing the program you will choose one of these files to run.
 The files can be .csv or .txt as long as they're formatted correctly.
