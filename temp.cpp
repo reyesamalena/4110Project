@@ -33,17 +33,21 @@ int minDistance(int dist[], bool sptSet[], int V)
 }
   
 // A utility function to print the constructed distance array
-void printSolution(int dist[], int V)
+int printSolution(int dist[], int V)
 {
+    
+    int ret=0;
     printf("Vertex \t\t Distance from Source\n");
     for (int i = 0; i < V; i++){
         printf("%d \t\t %d\n", i, dist[i]);
+        ret+= dist[i];
     }
+    return ret;
 }
   
 // Function that implements Dijkstra's single source shortest path algorithm
 // for a graph represented using adjacency matrix representation
-void dijkstra(int **graph, int src, int V)
+int dijkstra(int **graph, int src, int V)
 {
     int dist[V]; // The output array.  dist[i] will hold the shortest
     // distance from src to i
@@ -79,7 +83,7 @@ void dijkstra(int **graph, int src, int V)
     }
   
     // print the constructed distance array
-    printSolution(dist, V);
+    return printSolution(dist, V);
 }
 
 // class to hold item properties
@@ -141,12 +145,35 @@ void printItems(vector<item> I)
 }
 
 // utility function returns max of 2 ints
-double max(double a, double b) { return (a > b)? a : b; }
+int max(double a, double b) { return (a > b)? a : b; }
 
 // Returns the max value to put into truck
-double knapSack(int W, vector<item> I, int n)
+int knapSack(int W, int wt[], int val[], int n, int **graph)
 {
-	int i, w;
+    
+
+    // Base Case
+    if (n == 0 || W == 0){
+        int ret = dijkstra(graph, n, W);
+        cout << "RETURN -"<< ret << endl;
+        return -ret;
+    }
+    // If weight of the nth item is more
+    // than Knapsack capacity W, then
+    // this item cannot be included
+    // in the optimal solution
+    if (wt[n-1] > W){
+        return knapSack(W, wt, val, n-1, graph);
+    }
+    // Return the maximum of two cases:
+    // (1) nth item included
+    // (2) not included
+    else {
+        int part1 =(val[n-1] - graph[0][n]) + knapSack(W-wt[n-1], wt, val, n-1, graph);
+        int part2 =    knapSack(W, wt, val, n-1, graph);
+        return max(part1,part2);
+    }
+	/*int i, w;
 	double K[n+1][W+1];
 
 	//Build table K[][] in bottom up manner
@@ -154,16 +181,22 @@ double knapSack(int W, vector<item> I, int n)
 	{
 		for (w=0;w<=W;w++)
 		{
-			if(i==0 || w==0)
+            if(i==0 || w==0){
 				K[i][w] =0.0;
-			else if(I[i-1].weight <= w)
-				K[i][w] = (max(I[i-1].earn + (double)K[i-1][w - I[i-1].weight], K[i-1][w]));
-			else
+            }
+            else if(I[i-1].weight <= w){
+                int partone =I[i-1].earn + (double)K[i-1][w - I[i-1].weight];
+                int parttwo =K[i-1][w];
+                
+				K[i][w] = (max(partone, parttwo));
+            }
+            else{
 				K[i][w] = (K[i-1][w]);
+            }
 		}
 	}
 
-	return (K[n][W]);
+	return (K[n][W]);*/
 }
 
 
@@ -192,13 +225,14 @@ int main()
     sregex_token_iterator it(s.begin(), s.end(), re, -1);
     sregex_token_iterator reg_end;
     for (; it != reg_end; ++it) {
-        std::cout << it->str() ;
+      //  std::cout << it->str() ;
         numbers++;
     }
-    cout << "elem----" << numbers<<  endl;
+   
      //int graph= new int*[numbers+1];
     int **graph=new int*[numbers+1];
     //input array elements
+
 
     
     for(int i=0; i<numbers+1; i++){
@@ -212,6 +246,7 @@ int main()
         }
     }
     int hold=numbers;
+
     numbers=0;
     int rows=0;
     while(mapfile)
@@ -228,11 +263,11 @@ int main()
                 string t= it->str() ;
                 int tt=stoi(t);
                 graph[rows][numbers-1]=tt;
-                            std::cout << it->str() ;
+                            //std::cout << it->str() ;
             }
             numbers++;
         }
-        cout << "elem" << numbers<<  endl;
+       // cout << "elem" << numbers<<  endl;
                 numbers=0;
         rows++;
 
@@ -254,7 +289,9 @@ int main()
 	cout << "What is the max weight, W, that the truck can carry?" << endl;
        	cin >> W;	
 
-
+    int val_nap[hold+1];
+    int wt_nap[hold+1];
+    firstline=0;
 	// read file for items
 	ifstream file(filename.c_str());
 	while(file)
@@ -272,6 +309,9 @@ int main()
 			if(!getline(ss, value, ',')) break;
 			row.push_back(value);
 		}
+        val_nap[firstline]= stoi(row[2]);
+        wt_nap[firstline]= stoi(row[1]);
+        firstline++;
 		// create temp item from values to add to vector
 		item temp(row[0],stoi(row[1]),stod(row[2]),row[3]);
 		Items.push_back(temp);
@@ -283,10 +323,13 @@ int main()
 	Items = itemSorter(Items);
 
 	int n = Items.size();
-	cout << "Maximum profit is : "<< knapSack(W,Items,n) << endl;
+    
+    int mn= sizeof(val_nap)/sizeof(val_nap[0]);
+    cout << "Maximum profit is : "<< knapSack(W,wt_nap,val_nap, mn, graph);//
+	//cout << "Maximum profit is : "<< knapSack(W,Items,n) << endl;//
 
-	cout << "Items under Weight " << W << " :" << endl;
-	printItems(Items);
+	//cout << "Items under Weight " << W << " :" << endl;
+	//printItems(Items);
 
 	return 0;
 }
