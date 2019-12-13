@@ -27,7 +27,7 @@ public:
 		value = ((double)c)/((double)w);
 		distance = (rand()%10)+1;
 		earn = ((double)c)/10;
-		profit = earn - distance;
+		profit = earn - (2*distance);
 
 	}
 	
