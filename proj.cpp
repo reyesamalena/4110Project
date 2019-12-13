@@ -7,8 +7,6 @@
 #include <fstream>
 #include <algorithm>
 
-
-
 using namespace std;
 
 // class to hold item properties
@@ -44,6 +42,18 @@ vector<item> itemSorter(vector<item> I) {
     sort(items_temp.begin(), items_temp.end(), greater <item>());
     return items_temp;
 }
+
+// eliminates items with weights > Weight max of truck
+vector<item> eliminator(vector<item> I, int W) {
+        vector<item> temp = I;
+        vector<item> newItems;
+        for(int i=0;i<temp.size();i++) {
+                if(temp[i].weight <= W)
+                        newItems.push_back(temp[i]);
+        }
+        return newItems;
+}
+
 
 //prints all Items
 void printItems(vector<item> I)
@@ -177,32 +187,32 @@ int main(){
         vector<item> Items;
             
     
-            string fname;
-    string namearray[201];
-    int m=0;
-    cout << "Which file of item input to test?" << endl;
-    getline(cin, fname);
+        string fname;
+    	string namearray[201];
+   	int m=0;
+   	cout << "Which file of map input to test?" << endl;
+    	getline(cin, fname);
     
-    ifstream filen(fname.c_str());
-    while(filen)
-    {
-        string ps;
-        if(!getline(filen,ps)) break;
+    	ifstream filen(fname.c_str());
+    	while(filen)
+    	{
+        	string ps;
+        	if(!getline(filen,ps)) break;
         
-        // split row into values seperated by commas
-        istringstream pss(ps);
+        	// split row into values seperated by commas
+        	istringstream pss(ps);
 
-        while(pss)
-        {
-            string value;
-            if(!getline(pss, value, ',')) break;
-            namearray[m]= value;
-            m++;
-        }
+        	while(pss)
+        	{
+            		string value;
+            		if(!getline(pss, value, ',')) break;
+            		namearray[m]= value;
+            		m++;
+        	}
 
-    }
+    	}	
 
-    filen.close();
+    	filen.close();
 
         string filename;
         // ask user for filename of item set
@@ -240,7 +250,7 @@ int main(){
 
         
         Items = itemSorter(Items);
-
+//	Items = eliminator(Items);
         int n = Items.size();
         cout << knapSack(W,Items,n) << endl;
 
