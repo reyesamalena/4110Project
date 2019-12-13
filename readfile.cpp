@@ -76,7 +76,7 @@ void printItems(vector<item> I)
 double max(double a, double b) { return (a > b)? a : b; }
 
 // Returns the max value to put into truck
-double knapSack(int W, vector<item> I, int n)
+void knapSack(int W, vector<item> I, int n)
 {
 	int i, w;
 	double K[n+1][W+1];
@@ -100,7 +100,32 @@ double knapSack(int W, vector<item> I, int n)
 		}
 	}
 
-	return (K[n][W]);
+	double result = (K[n][W]);
+	double total = result;
+	cout << "Max profit is : " << total << endl;
+	cout << "These are the items inside: " << endl;
+	w = W;
+	for (i = n; i > 0 && total > 0; i--) {
+
+        // either the result comes from the top
+        // (K[i-1][w]) or from (val[i-1] + K[i-1]
+        // [w-wt[i-1]]) as in Knapsack table. If
+        // it comes from the latter one/ it means
+        // the item is included.
+        if (total == K[i - 1][w])
+            continue;
+        else {
+
+            // This item is included.
+            cout << I[i - 1].name << endl;
+
+            // Since this weight is included its
+            // value is deducted
+            total = total - I[i - 1].earn;
+            w = w - I[i - 1].weight;
+
+        }
+    	}
 }
 
 
@@ -152,10 +177,12 @@ int main()
 	Items = itemSorter(Items);
 
 	int n = Items.size();
-	cout << "Maximum profit is : "<< knapSack(W,Items,n) << endl;
+//	cout << "Maximum profit is : "<< knapSack(W,Items,n) << endl;
+	knapSack(W,Items,n);
 
-	cout << "Items under Weight " << W << " :" << endl;
-	printItems(Items);
+
+//	cout << "Items under Weight " << W << " :" << endl;
+//	printItems(Items);
 
 	return 0;
 }
