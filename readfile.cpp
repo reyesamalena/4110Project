@@ -16,6 +16,8 @@ public:
 	string address;
 	double value;
 	double earn;
+	int distance;
+	double profit;
 
 	item(string n,int w,int c,string a) {
 		name = n;
@@ -23,7 +25,10 @@ public:
 		cost = c;
 		address = a;
 		value = ((double)c)/((double)w);
+		distance = (rand()%10)+1;
 		earn = ((double)c)/10;
+		profit = earn - distance;
+
 	}
 	
 	// define operator to help sort items	
@@ -54,13 +59,15 @@ vector<item> eliminator(vector<item> I, int W) {
 //prints all Items
 void printItems(vector<item> I)
 {
-	cout << "Name\t\t\tWeight\tCost\tValue\tEarn\tAddress\n";
+	cout << "Name\t\t\tWeight\tCost\tValue\tEarn\tDist\tProfit\tAddress\n";
 	for(int x=0;x<I.size();x++) {
 		cout << I[x].name << "\t\t";
 		cout << I[x].weight << "\t";
 		cout << I[x].cost << "\t";
 		cout << I[x].value << "\t";
-		cout << I[x].earn << "\t";	
+		cout << I[x].earn << "\t";
+		cout << I[x].distance << "\t";
+		cout << I[x].profit << "\t";
 		cout << I[x].address << "\n";
 	}
 }
@@ -81,8 +88,13 @@ double knapSack(int W, vector<item> I, int n)
 		{
 			if(i==0 || w==0)
 				K[i][w] =0.0;
+/*
 			else if(I[i-1].weight <= w)
-				K[i][w] = (max(I[i-1].earn + (double)K[i-1][w - I[i-1].weight], K[i-1][w]));
+				K[i][w] = (max(I[i-1].earn + (double)K[i-1][w - I[i-1].weight], K[i-1][w]));		
+*/
+			else if(I[i-1].weight <= w)
+				K[i][w] = (max(I[i-1].profit + (double)K[i-1][w - I[i-1].weight], K[i-1][w]));
+			
 			else
 				K[i][w] = (K[i-1][w]);
 		}
@@ -95,6 +107,9 @@ double knapSack(int W, vector<item> I, int n)
 
 int main()
 {
+	srand(time(0));
+
+
 	// store items
 	vector<item> Items;
 
