@@ -173,30 +173,7 @@ int knapSack(int W, int wt[], int val[], int n, int **graph)
         int part2 =    knapSack(W, wt, val, n-1, graph);
         return max(part1,part2);
     }
-	/*int i, w;
-	double K[n+1][W+1];
 
-	//Build table K[][] in bottom up manner
-	for (i=0;i<=n;i++) 
-	{
-		for (w=0;w<=W;w++)
-		{
-            if(i==0 || w==0){
-				K[i][w] =0.0;
-            }
-            else if(I[i-1].weight <= w){
-                int partone =I[i-1].earn + (double)K[i-1][w - I[i-1].weight];
-                int parttwo =K[i-1][w];
-                
-				K[i][w] = (max(partone, parttwo));
-            }
-            else{
-				K[i][w] = (K[i-1][w]);
-            }
-		}
-	}
-
-	return (K[n][W]);*/
 }
 
 
@@ -231,9 +208,6 @@ int main()
    
      //int graph= new int*[numbers+1];
     int **graph=new int*[numbers+1];
-    //input array elements
-
-
     
     for(int i=0; i<numbers+1; i++){
         graph[i]= new int[numbers+1];
@@ -267,7 +241,6 @@ int main()
             }
             numbers++;
         }
-       // cout << "elem" << numbers<<  endl;
                 numbers=0;
         rows++;
 
@@ -319,18 +292,17 @@ int main()
 
 	file.close();
 
-	//Items = eliminator(Items,W);	//eliminates that are not in the range
 	Items = itemSorter(Items);
 
 	int n = Items.size();
     
     int mn= sizeof(val_nap)/sizeof(val_nap[0]);
     cout << "Maximum profit is : "<< knapSack(W,wt_nap,val_nap, mn, graph);//
-	//cout << "Maximum profit is : "<< knapSack(W,Items,n) << endl;//
 
-	//cout << "Items under Weight " << W << " :" << endl;
-	//printItems(Items);
 
 	return 0;
 }
+
+/*Resources for Dijkstra were also helpful and provided by Dijkstra’s shortest path algorithm | Greedy Algo-7. */
+/* www.geeksforgeeks.org/0-1-knapsack-problem-dp-10 */
 
