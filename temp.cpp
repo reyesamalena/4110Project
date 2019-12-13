@@ -37,9 +37,9 @@ int printSolution(int dist[], int V)
 {
     
     int ret=0;
-    printf("Vertex \t\t Distance from Source\n");
+   // printf("Vertex \t\t Distance from Source\n");
     for (int i = 0; i < V; i++){
-        printf("%d \t\t %d\n", i, dist[i]);
+      //  printf("%d \t\t %d\n", i, dist[i]);
         ret+= dist[i];
     }
     return ret;
@@ -155,7 +155,7 @@ int knapSack(int W, int wt[], int val[], int n, int **graph)
     // Base Case
     if (n == 0 || W == 0){
         int ret = dijkstra(graph, n, W);
-        cout << "RETURN -"<< ret << endl;
+       // cout << "RETURN -"<< ret << endl;
         return -ret;
     }
     // If weight of the nth item is more
